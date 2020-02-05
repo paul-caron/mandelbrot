@@ -1,6 +1,7 @@
 //author Paul Caron
 
 
+//number of pixels in a row
 const divisions=360;
 let canvas;
 let ctx;
@@ -21,9 +22,10 @@ function start(){
     canvas.width=w=Math.min(innerWidth,innerHeight);
     canvas.height=h=w;
     ctx=canvas.getContext("2d");
-    
-    for(let i=istart;i<iend;i+=irange/divisions){
-        for(let r=rstart;r<rend;r+=rrange/divisions){
+    iinc=irange/divisions;
+    rinc=rrange/divisions;
+    for(let i=istart;i<iend;i+=iinc){
+        for(let r=rstart;r<rend;r+=rinc){
             mandelbrot(new Complex(r,i))
         }
     }
@@ -31,12 +33,12 @@ function start(){
 
 function mandelbrot(c){
     let z = new Complex(0,0);
-    for(var a=0;a<100;a++){
+    for(var a=0;a<100;a+=1){
         if(z.r*z.r+z.i*z.i>4)
             break;
         z=add(square(z),c);
     }
-    ctx.fillStyle="hsl("+(a*3)%360+",100%,50%)";
+    ctx.fillStyle="hsl("+(a*36)%360+",100%,50%)";
     ctx.fillRect((c.r-hor)*w/rrange+w/2,(c.i-vert)*w/irange+h/2,w/divisions,h/divisions*2);
 }
 
@@ -47,18 +49,14 @@ function Complex(r,i){//real, imaginary
     this.i = i;
 }
 function add(c1,c2){//add complex numbers
-    var that = {};
-    that.r = 0;
-    that.i = 0;
-    that.r += c1.r+c2.r;
-    that.i += c1.i+c2.i;
-    return that;
+    const r = c1.r+c2.r;
+    const i = c1.i+c2.i;
+    return new Complex(r,i);
 }
 
 function square(z){//complex number square
-    var that = {};
-    that.r = z.r*z.r - z.i*z.i;
-    that.i = 2*z.r*z.i;
-    return that;
+    const r = z.r*z.r - z.i*z.i;
+    const i = 2*z.r*z.i;
+    return new Complex(r,i);
 }
 

@@ -1,0 +1,24 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <title>Mandelbrot</title>
+    </head>
+    <body onload="start();">
+        <canvas id="canvas"></canvas>
+        <br>
+        
+        <button onclick="zoom/=2;start()">-</button>
+        <label>-zoom+</label>
+        <button onclick="zoom*=2;start()">+</button>
+        <br>
+        
+        <button onclick="hor-=1/zoom;start()">-</button>
+        <label>-horizontal+</label> 
+        <button onclick="hor+=1/zoom;start()">+</button>
+        <br>
+        
+        <button onclick="vert-=1/zoom;start()">-</button>
+        <label>-vertical+</label> 
+        <button onclick="vert+=1/zoom;start()">+</button>
+    </body>
+</html>
